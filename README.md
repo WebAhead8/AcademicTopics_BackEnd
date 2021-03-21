@@ -1,1 +1,1 @@
-# academic-topics_-backend
+# academic-topics-backend
