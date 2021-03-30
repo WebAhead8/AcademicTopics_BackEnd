@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 //Create Schema and Model
 
-const PostsSchema = new Schema({
-  title: String,
-  user: String,
-  admissionRequirements: Array,
+const PostSchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+  title: { type: String },
+  content: { type: String },
 });
 
 const PostName = mongoose.model("postname", PostSchema);

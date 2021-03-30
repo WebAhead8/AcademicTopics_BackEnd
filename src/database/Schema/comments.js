@@ -4,9 +4,15 @@ const Schema = mongoose.Schema;
 //Create Schema and Model
 
 const CommentSchema = new Schema({
-  title: String,
-  user: String,
-  admissionRequirements: Array,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
+  post: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "posts",
+  },
+  content: { type: String },
 });
 
 const CommentName = mongoose.model("commentname", CommentSchema);
