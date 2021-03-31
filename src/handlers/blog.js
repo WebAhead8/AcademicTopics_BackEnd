@@ -34,7 +34,7 @@ function getCommentById(req, res, next) {
 }
 
 function getAllComments(req, res, next) {
-	postsModel
+	commentsModel
 		.getAllComments()
 		.then((data) => {
 			console.log(data);
@@ -47,9 +47,52 @@ function getAllComments(req, res, next) {
 		.catch(next);
 }
 
-function deleteComment(req, res, next) {}
+function deleteComment(req, res, next) {
+	const id = req.params.id;
+	commentsModel
+		.getCommentById(id)
+		.then((comment) => {
+			if (comment) {
+				commentsModel
+					.deleteComment(id)
+					.then((data) => {
+						res.status(200).send({ status: 'Comment deleted successfully' });
+					})
+					.catch(next);
+			} else {
+				res.status(400).send({ status: 'Comment not found' });
+			}
+		})
+		.catch(next);
+}
 
-function editComment(req, res, next) {}
+function editComment(req, res, next) {
+	const body = req.body;
+	console.log(body);
+	if (!body._id) {
+		res.status(422).send({ error: 'Comment not found' });
+	} else {
+		commentsModel.getCommentById(body._id).then((comment) => {
+			if (comment) {
+				if (!body.content) {
+					res.status(422).send({ status: 'Field Cannot be empty!' });
+				} else {
+					commentsModel
+						.editComment({
+							id: body._id,
+							content: body.content
+						})
+						.then((data) => {
+							res.status(200).send({ status: 'comment updated successfully' });
+						})
+						.catch(next);
+				}
+			} else {
+				res.status(400).send({ status: 'invalid Comment Id' });
+			}
+		});
+	}
+}
 
 //Posts
 function addPost(req, res, next) {

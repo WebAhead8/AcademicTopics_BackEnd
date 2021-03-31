@@ -7,21 +7,23 @@ const server = express();
 
 server.use(express.json());
 
-// signup & login
+// signUp & signIn
 server.post('/signup', signUser.signUp);
-server.post('/signin', signUser.signIn);
+server.post('/login', signUser.login);
 
 // Posts
 server.post('/addPost', blogManegment.addPost);
-server.get('/post/:id', blogManegment.getPostById);
+server.get('/posts/:id', blogManegment.getPostById);
 server.get('/posts', blogManegment.getAllPosts);
-server.put('/post', blogManegment.editPost);
-server.delete('/post/:id', blogManegment.deletePost);
+server.put('/posts', blogManegment.editPost);
+server.delete('/posts/:id', blogManegment.deletePost);
 
 // Comments
 server.post('/addComment', blogManegment.addComment);
-server.get('/comment/:id', blogManegment.getCommentById);
+server.get('/comments/:id', blogManegment.getCommentById);
 server.get('/comments', blogManegment.getAllComments);
+server.put('/comments', blogManegment.editComment);
+server.delete('/comments/:id', blogManegment.deleteComment);
 
 // Server
 server.listen(4000, () => {
