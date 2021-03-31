@@ -6,33 +6,31 @@ const User = require("../database/Schema/users");
 dotenv.config();
 
 function signUp(req, res, next) {
-  bcrypt
-    .hash(req.body.password, 10, function (err, hashedPass) {
-      if (err) {
-        res.json({
-          error: err,
-        });
-      }
-      let user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        address: req.body.address,
-        password: hashedPass,
+  bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
+    if (err) {
+      res.json({
+        error: err,
       });
-      user
-        .save()
-        .then((user) => {
-          res.json({
-            message: "Your now signed up!",
-          });
-        })
-        .catch((error) => {
-          res.json({
-            message: "An error occurred!",
-          });
+    }
+    let user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      address: req.body.address,
+      password: hashedPass,
+    });
+    user
+      .save()
+      .then((user) => {
+        res.json({
+          message: "Your now signed up!",
         });
-    })
-    .catch(next);
+      })
+      .catch((error) => {
+        res.json({
+          message: "An error occurred!",
+        });
+      });
+  });
 }
 
 function login(req, res, next) {

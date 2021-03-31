@@ -15,9 +15,6 @@ function deletePost(postId) {
 }
 
 function getPostById(postId) {
-  const objectId = mongoose.Types.ObjectId(postId);
-  const obj = { _id: objectId };
-
   return Post.findById(postId);
 }
 
