@@ -1,24 +1,21 @@
-const mongoose = require("mongoose");
-const { post } = require("../../server");
-const { db } = require("../schema/posts");
-const Post = require("../schema/posts");
+const mongoose = require('mongoose');
+const { post } = require('../../server');
+const { db } = require('../schema/posts');
+const Post = require('../schema/posts');
 
 function addPost(postTitle) {
-  postTitle.user = mongoose.Types.ObjectId(postTitle.user);
-  let newPost = new Post(postTitle);
-  return newPost.save();
+	postTitle.user = mongoose.Types.ObjectId(postTitle.user);
+	let newPost = new Post(postTitle);
+	return newPost.save();
 }
 
 function deletePost(postId) {
-  const objectId = mongoose.Types.ObjectId(postId);
-  return Post.deleteOne({ _id: objectId });
+	const objectId = mongoose.Types.ObjectId(postId);
+	return Post.deleteOne({ _id: objectId });
 }
 
 function getPostById(postId) {
-  const objectId = mongoose.Types.ObjectId(postId);
-  const obj = { _id: objectId };
-
-  return Post.findById(postId);
+	return Post.findById(postId);
 }
 
 // function getAllPost() {
