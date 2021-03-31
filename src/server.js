@@ -9,7 +9,7 @@ const server = express();
 
 server.use(express.json());
 
-server.post("/signUp", signUser.signUp);
+server.post("/signup", signUser.signUp);
 server.post("/login", signUser.login);
 
 server.post("/addPost", blogManegment.addPost);
