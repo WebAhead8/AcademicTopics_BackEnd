@@ -8,8 +8,12 @@ function addComment(commentContent) {
 	return newComment.save();
 }
 
-function commentById(commentId) {
+function getCommentById(commentId) {
 	return Comment.findById(commentId).exec();
 }
 
-module.exports = { commentById, addComment };
+function getAllComments() {
+	return Comment.find({});
+}
+
+module.exports = { addComment, commentById };
