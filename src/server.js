@@ -8,7 +8,6 @@ const server = express();
 // server.use(express.json({ extended: false }));
 
 server.use(express.json());
-connectDB();
 
 server.post("/signUp", signUser.signUp);
 server.post("/login", signUser.login);
@@ -16,11 +15,16 @@ server.post("/login", signUser.login);
 server.post("/addPost", blogManegment.addPost);
 server.post("/addComment", blogManegment.addComment);
 
-// server.get("/posts", blogManegment.getAllPosts);
+server.get("/posts", blogManegment.getAllPosts);
 server.get("/posts/:id", blogManegment.getPostById);
 
-server.listen(4000, () =>
-  console.log("Server listening on http:localhost:4000")
-);
+server.delete("/posts/:id", blogManegment.deletePost);
+
+server.put("/posts", blogManegment.editPost);
+
+server.listen(4000, () => {
+  connectDB();
+  console.log("Server listening on http:localhost:4000");
+});
 
 module.exports = route;

@@ -21,8 +21,30 @@ function getPostById(postId) {
   return Post.findById(postId);
 }
 
-// function getAllPost() {
-//   return Post.find({});
-// }
+function getAllPosts() {
+  return Post.find({});
+}
 
-module.exports = { addPost, deletePost, getPostById };
+function editPostTitle(postDetails) {
+  const objectId = mongoose.Types.ObjectId(postDetails.id);
+  return Post.updateOne(
+    { _id: objectId },
+    { $set: { title: postDetails.title } }
+  );
+}
+
+function editPostContent(postContent) {
+  const objectId = mongoose.Types.ObjectId(postContent.id);
+  return Post.updateOne(
+    { _id: objectId },
+    { $set: { content: postContent.content } }
+  );
+}
+module.exports = {
+  addPost,
+  deletePost,
+  getPostById,
+  getAllPosts,
+  editPostContent,
+  editPostTitle,
+};
